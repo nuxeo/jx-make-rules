@@ -18,10 +18,10 @@
 
 .PHONY: skaffold@up skaffold@down
 
-export NAMESPACE ?= jx
 export VERSION ?= 0.0.0-SNAPSHOT
 export DOCKER_REGISTRY ?= jenkins-x-docker-registry
 export SKAFFOLD_DEPLOY_NAMESPACE ?= jx
+export SKAFFOLD_NAMESPACE ?= $(SKAFFOLD_DEPLOY_NAMESPACE)
 
 skaffold-version-embed = $(shell skaffold version 2>/dev/null)
 skaffold-version ?= v0.38.0
@@ -74,4 +74,4 @@ endif
 .phony: skaffold@up skaffold@down skaffold.yaml~gen
 
 skaffold.yaml~gen: skaffold.yaml
-	envsubst '$$SKAFFOLD_DEPLOY_NAMESPACE $$DOCKER_REGISTRY $$VERSION' < skaffold.yaml > skaffold.yaml~gen
+	envsubst '$$SKAFFOLD_NAMESPACE $$DOCKER_REGISTRY $$VERSION' < skaffold.yaml > skaffold.yaml~gen
