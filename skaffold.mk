@@ -25,7 +25,7 @@ export SKAFFOLD_NAMESPACE ?= $(SKAFFOLD_DEPLOY_NAMESPACE)
 
 skaffold-version-embed = $(shell skaffold version 2>/dev/null)
 skaffold-version ?= v0.38.0
-ifneq ($(skaffold-version),$(shell skaffold version 2>/dev/null))
+ifneq ($(skaffold-version-embed),$(shell echo $(skaffold-versio) $(skaffold-version-embed) | sort -r -V | head -n1))
 skaffold-pod-name := $(shell hostname)-skaffold
 define skaffold_pod_template =
 apiVersion: v1
@@ -74,4 +74,4 @@ endif
 .phony: skaffold@up skaffold@down skaffold.yaml~gen
 
 skaffold.yaml~gen: skaffold.yaml
-	envsubst '$$SKAFFOLD_NAMESPACE $$DOCKER_REGISTRY $$VERSION' < skaffold.yaml > skaffold.yaml~gen
+	envsubst < skaffold.yaml > skaffold.yaml~gen
