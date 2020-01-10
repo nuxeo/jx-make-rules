@@ -18,6 +18,7 @@
 
 .PHONY: skaffold@up skaffold@down
 
+export SCM_REF=$(shell git show -s --pretty=format:'%h%d' 2>/dev/null |echo unknown)
 export VERSION ?= 0.0.0-SNAPSHOT
 export DOCKER_REGISTRY ?= jenkins-x-docker-registry
 export SKAFFOLD_DEPLOY_NAMESPACE ?= jx
